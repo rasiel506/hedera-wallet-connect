@@ -1,7 +1,7 @@
 import { AccountId, LedgerId, Transaction } from "@hashgraph/sdk";
 import { HashConnect } from "hashconnect";
 
-const env = "testnet";
+const env = "mainnet";
 const appMetadata = {
     name: "OTIA AI",
     description: "Operational Technology Innovation and Automation",
