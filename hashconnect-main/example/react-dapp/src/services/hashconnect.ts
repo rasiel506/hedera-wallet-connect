@@ -3,9 +3,9 @@ import { HashConnect } from "hashconnect";
 
 const env = "testnet";
 const appMetadata = {
-    name: "Example dApp",
-    description: "An example HashConnect dApp",
-    icons: [window.location.origin + "/favicon.ico"],
+    name: "OTIA AI",
+    description: "Operational Technology Innovation and Automation",
+    icons: [window.location.origin + "/otia.png"],
     url: window.location.origin,
 };
 const projectId = "bfa190dbe93fcf30377b932b31129d05";
