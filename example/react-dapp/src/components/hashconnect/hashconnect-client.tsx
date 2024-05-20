@@ -1,15 +1,14 @@
-import {
-  Box,
-  Button,
-} from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { postUserId } from "../../services/apiservice";
 import {
   getConnectedAccountIds,
   hc,
   hcInitPromise,
 } from "../../services/hashconnect";
 import { actions, AppStore } from "../../store";
+let isConnecting = false;
 
 export const HashConnectClient = () => {
   const dispatch = useDispatch();
@@ -17,11 +16,12 @@ export const HashConnectClient = () => {
     const connectedAccountIds = getConnectedAccountIds();
     console.log(connectedAccountIds);
     if (connectedAccountIds.length > 0) {
-      dispatch(
-        actions.hashconnect.setAccountIds(
-          connectedAccountIds.map((o) => o.toString())
-        )
-      );
+      const ids = connectedAccountIds.map((o) => o.toString());
+      dispatch(actions.hashconnect.setAccountIds(ids));
+      if (isConnecting) {
+        isConnecting = false;
+        postUserId(ids[0]);
+      }
       dispatch(actions.hashconnect.setIsConnected(true));
       dispatch(actions.hashconnect.setPairingString(hc.pairingString ?? ""));
     } else {
@@ -66,6 +66,7 @@ export const HashConnectConnectButton = () => {
               }
             }
           } else {
+            isConnecting = true;
             // open walletconnect modal
             hc.openPairingModal();
           }
